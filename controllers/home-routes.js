@@ -3,21 +3,13 @@ const { BlogPost, Comment } = require('../models');
 
 // GET all galleries for homepage
 router.get('/', async (req, res) => {
-  try {
-    const dbBlogData = await BlogPost.findAll();
-
-    const blogpost = dbBlogData.map((blogpost) =>
-      blogpost.get({ plain: true })
-    );
-    res.render('homepage', {
-      galleries,
-      loggedIn: req.session.loggedIn,
+  const dbBlogData = await BlogPost.findAll().catch((err) => { 
+      res.json(err);
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+      const blogposts = dbBlogData.map((blogpost) => blogpost.get({ plain: true }));
+      res.render('homepage', { blogposts });
+    });
+
 
 // GET one gallery
 router.get('/blogpost/:id', async (req, res) => {
@@ -51,6 +43,14 @@ router.get('/login', (req, res) => {
     return;
   }
   res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+  res.render('signup');
 });
 
 module.exports = router;
