@@ -1,8 +1,8 @@
 
 {{#each blogposts}}
 <section class="card">
-    <header><h1>{{title}}</h1></header>
+    <header><h1><a href="/blogpost/{{id}}">{{title}}</a></h1></header>
     <p>{{post_body}}</p>
-    <h2>Posted by {{author_id}}</h2>
+    <h2>Posted by {{user.username}}</h2>
 </section>
 {{/each}}
