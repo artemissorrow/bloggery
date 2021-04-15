@@ -1,3 +1,5 @@
-{{#each galleries as |gallery|}}
-{{> gallery-details}}
+{{#each blogposts as |blogpost|}}
+<h1>{{this.title}}</h1>
+<p>{{this.post_body}}</p>
+<h2>Posted by {{this.author_id}}</h2>
 {{/each}}

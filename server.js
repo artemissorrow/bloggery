@@ -17,13 +17,11 @@ const PORT = process.env.PORT || 3001;
 // Sets up session and connect to Sequelize db
 const sess = {
   secret: 'Super secret secret',
-  // TODO: Add comments describing the implementation of cookies
-  // tells session to use cookies
+  
   cookie: {},
   resave: false,
   saveUninitialized: true,
-  // TODO: Add comments describing the implementation of the store
-  // sets up session store
+ 
   store: new SequelizeStore({
     db: sequelize,
   }),

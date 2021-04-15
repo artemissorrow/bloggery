@@ -1,56 +1,50 @@
 const router = require('express').Router();
 const { BlogPost, Comment } = require('../models');
 
-// GET all galleries for homepage
 router.get('/', async (req, res) => {
-  const dbBlogData = await BlogPost.findAll().catch((err) => { 
-      res.json(err);
-    });
-      const blogposts = dbBlogData.map((blogpost) => blogpost.get({ plain: true }));
-      res.render('homepage', { blogposts });
-    });
-
-
-// GET one gallery
-router.get('/blogpost/:id', async (req, res) => {
   try {
-    const dbBlogData = await BlogPost.findByPk(req.params.id, {
-      include: [
-        {
-          model: Comment,
-          attributes: [
-            'id',
-            'author_id',
-            'comment_body',
-            'post_id'
-          ],
-        },
-      ],
-    });
+    const blogData = await BlogPost.findAll()
 
-    const blogpost = dbBlogData.get({ plain: true });
-    res.render('blogpost', { blogpost, loggedIn: req.session.loggedIn });
+    const blogposts = blogData.map((blogpost) =>
+    blogpost.get({ plain: true })
+    );
+
+    res.render('homepage', {
+      blogposts
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
+})
+
+router.get('/blogpost/:id', async (req, res) => {
+  try {
+    const blogData = await BlogPost.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            'author_id',
+            'comment_body',
+          ]
+        }
+      ]
+    });
+    const post = blogData.get({ plain: true });
+    res.render('blogpost', { post });
+  } catch (err) {
+
+  }
 });
 
-// Login route
+
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
     return;
   }
   res.render('login');
-});
-
-router.get('/signup', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/');
-    return;
-  }
-  res.render('signup');
 });
 
 module.exports = router;
