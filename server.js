@@ -13,8 +13,6 @@ const helpers = require('./utils/helpers');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// TODO: Add comments describing the implementation of sessions
-// Sets up session and connect to Sequelize db
 const sess = {
   secret: 'Super secret secret',
   

@@ -9,9 +9,9 @@ router.get('/', async (req, res) => {
     blogpost.get({ plain: true })
     );
 
-    res.render('homepage', {
-      blogposts
-    });
+    res.render('homepage', 
+      {blogposts}
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

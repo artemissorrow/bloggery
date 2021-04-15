@@ -25,13 +25,13 @@
   <main>
     <aside>
       <ul>{{#each blogpost}}
-        <li><a href="">{{this.title}}</a></li>
-      </ul>
+        <li><a href="/blogpost/{{id}}">{{title}}</a></li>
+      </ul> {{/each}}
     </aside>
     <div class="blog-main">
       {{{body}}}
     </div>
-    {{/each}}
+   
   </main>
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>

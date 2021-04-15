@@ -1,5 +1,8 @@
-{{#each blogposts as |blogpost|}}
-<h1>{{this.title}}</h1>
-<p>{{this.post_body}}</p>
-<h2>Posted by {{this.author_id}}</h2>
+
+{{#each blogposts}}
+<section class="card">
+    <header><h1>{{title}}</h1></header>
+    <p>{{post_body}}</p>
+    <h2>Posted by {{author_id}}</h2>
+</section>
 {{/each}}
